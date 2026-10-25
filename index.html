@@ -11,7 +11,7 @@
             background-color: var(--tg-theme-bg-color, #ffffff);
             color: var(--tg-theme-text-color, #000000);
             text-align: center;
-            padding: 30px 20px;
+            padding: 20px;
             margin: 0;
         }
         .card {
@@ -19,10 +19,20 @@
             padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-top: 20px;
+            margin-top: 15px;
         }
-        h2 { font-size: 20px; margin-bottom: 10px; }
-        p { font-size: 14px; color: #666; margin-bottom: 20px; }
+        h2 { font-size: 18px; margin-bottom: 8px; }
+        p { font-size: 13px; color: #666; margin-bottom: 15px; }
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+            text-align: center;
+        }
         .pay-btn {
             background-color: var(--tg-theme-button-color, #2481cc);
             color: var(--tg-theme-button-text-color, #ffffff);
@@ -43,27 +53,35 @@
 <body>
 
     <h2>Bixinta Bilaha ah ($1.00)</h2>
-    <p>Riix batoonka hoose si aad si toos ah USSD-ga ugu dirto taleefankaaga oo u furto sanduuqa PIN-ka.</p>
+    <p>Geli lambarkaaga taleefanka si aad u billowdo lacag-bixinta Sahal.</p>
 
     <div class="card">
-        <!-- USSD link formatted with RFC 3966 / tel URI structure for automated execution -->
-        <a href="tel:%2A884%2A418029%2A1%23" class="pay-btn" id="dialLink">📞 Riix si aad u Bixiso ($1.00)</a>
+        <input type="tel" id="phoneInput" placeholder="Tusaale: 90xxxxxxx ama 61xxxxxxx" />
+        <a href="#" class="pay-btn" id="payBtn" onclick="triggerPayment(event)">📞 Bixi $1.00 (Dir USSD)</a>
     </div>
 
     <script>
-        // Initialize Telegram Web App API
         let tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Optional: Auto-trigger click event on load if desired, 
-        // or let user tap the button explicitly to trigger the carrier prompt popup.
-        const dialButton = document.getElementById('dialLink');
-        dialButton.addEventListener('click', function(e) {
-            // Telegram WebApp vibration feedback on click for better UX
+        function triggerPayment(e) {
+            e.preventDefault();
+            let phone = document.getElementById('phoneInput').value.trim();
+            
+            if (!phone) {
+                alert("Fadlan geli lambarkaaga taleefanka!");
+                return;
+            }
+
             if (tg && tg.HapticFeedback) {
                 tg.HapticFeedback.impactOccurred('medium');
             }
-        });
+
+            // Merchant USSD structure: *884*MERCHANT*AMOUNT*PHONE#
+            // Or passing through standard dialer with user's number prefix
+            let ussdCode = `tel:*884*418029*1*${phone}#`;
+            window.location.href = ussdCode;
+        }
     </script>
 </body>
 </html>
