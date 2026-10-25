@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahal Payment Gateway</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            text-align: center;
+            padding: 30px 20px;
+            margin: 0;
+        }
+        .card {
+            background: var(--tg-theme-secondary-bg-color, #f4f4f5);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-top: 20px;
+        }
+        h2 { font-size: 20px; margin-bottom: 10px; }
+        p { font-size: 14px; color: #666; margin-bottom: 20px; }
+        .pay-btn {
+            background-color: var(--tg-theme-button-color, #2481cc);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            border-radius: 8px;
+            padding: 14px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Bixinta Bilaha ah ($1.00)</h2>
+    <p>Riix batoonka hoose si aad taleefankaaga uga wacdo lambarka USSD ee lacag bixinta.</p>
+
+    <div class="card">
+        <!-- This automatically opens the phone dialer pre-filled with the Sahal/EVC USSD code -->
+        <a href="tel:*884*252904601668*1%23" class="pay-btn" id="dialLink">📞 Ku Garaac USSD (*884*...)</a>
+    </div>
+
+    <script>
+        // Initialize Telegram Web App API
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        // Optional: Automatically try to launch dialer on load for mobile users
+        document.getElementById('dialLink').click();
+    </script>
+</body>
+</html>
