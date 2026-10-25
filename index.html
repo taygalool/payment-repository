@@ -43,11 +43,11 @@
 <body>
 
     <h2>Bixinta Bilaha ah ($1.00)</h2>
-    <p>Riix batoonka hoose si aad taleefankaaga uga wacdo lambarka USSD ee lacag bixinta.</p>
+    <p>Riix batoonka hoose si aad si toos ah USSD-ga ugu dirto taleefankaaga oo u furto sanduuqa PIN-ka.</p>
 
     <div class="card">
-        <!-- Automatically targets your new merchant USSD code: *884*418029*1# -->
-        <a href="tel:*884*418029*1%23" class="pay-btn" id="dialLink">📞 Ku Garaac USSD (*884*418029*1#)</a>
+        <!-- USSD link formatted with RFC 3966 / tel URI structure for automated execution -->
+        <a href="tel:%2A884%2A418029%2A1%23" class="pay-btn" id="dialLink">📞 Riix si aad u Bixiso ($1.00)</a>
     </div>
 
     <script>
@@ -55,8 +55,15 @@
         let tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Automatically trigger the link to open the dialer directly on click/load
-        document.getElementById('dialLink').click();
+        // Optional: Auto-trigger click event on load if desired, 
+        // or let user tap the button explicitly to trigger the carrier prompt popup.
+        const dialButton = document.getElementById('dialLink');
+        dialButton.addEventListener('click', function(e) {
+            // Telegram WebApp vibration feedback on click for better UX
+            if (tg && tg.HapticFeedback) {
+                tg.HapticFeedback.impactOccurred('medium');
+            }
+        });
     </script>
 </body>
 </html>
