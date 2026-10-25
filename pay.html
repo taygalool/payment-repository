@@ -46,8 +46,8 @@
     <p>Riix batoonka hoose si aad taleefankaaga uga wacdo lambarka USSD ee lacag bixinta.</p>
 
     <div class="card">
-        <!-- This automatically opens the phone dialer pre-filled with the Sahal/EVC USSD code -->
-        <a href="tel:*884*252904601668*1%23" class="pay-btn" id="dialLink">📞 Ku Garaac USSD (*884*...)</a>
+        <!-- Automatically targets your new merchant USSD code: *884*418029*1# -->
+        <a href="tel:*884*418029*1%23" class="pay-btn" id="dialLink">📞 Ku Garaac USSD (*884*418029*1#)</a>
     </div>
 
     <script>
@@ -55,7 +55,7 @@
         let tg = window.Telegram.WebApp;
         tg.expand();
 
-        // Optional: Automatically try to launch dialer on load for mobile users
+        // Automatically trigger the link to open the dialer directly on click/load
         document.getElementById('dialLink').click();
     </script>
 </body>
